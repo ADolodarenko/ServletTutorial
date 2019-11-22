@@ -1,7 +1,6 @@
 package org.o7planning.tutorial.servlet;
 
 import java.io.IOException;
-import java.util.Enumeration;
 
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
@@ -9,6 +8,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.o7planning.tutorial.beans.Constants;
 
 @WebServlet("/showMe")
 public class ShowMeServlet extends HttpServlet
@@ -18,15 +19,12 @@ public class ShowMeServlet extends HttpServlet
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
 	{
-		ServletOutputStream out = resp.getOutputStream();
-		
-		Enumeration<String> attributes = req.getAttributeNames();
-		while (attributes.hasMoreElements())
-		{
-			String attributeName = attributes.nextElement();
-			
-			out.println(attributeName + ": " + req.getAttribute(attributeName));
-		}
+		String value = (String) req.getAttribute(Constants.ATTRIBUTE_USER_NAME_KEY);
+		 
+        ServletOutputStream out = resp.getOutputStream();
+ 
+        out.println("<h1>ShowMeServlet</h1>");
+        out.println(value);
 	}
 
 	@Override
